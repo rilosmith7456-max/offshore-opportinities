@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Offshore Opportunities | MMC Application Assistance</title>
+<style>
+:root{--n:#071a2d;--b:#0b527d;--g:#f2b84b;--bg:#f3f6f9;--ink:#182536}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(135deg,var(--n),var(--b));color:#fff}nav,.wrap{max-width:1150px;margin:auto;padding:20px}
+nav{display:flex;justify-content:space-between;align-items:center}nav a{display:inline-block;color:#fff;text-decoration:none;margin-left:18px;padding:10px 12px;border-radius:7px;font-weight:700}nav a:hover,nav a:focus-visible{background:#fff;color:var(--n);outline:3px solid var(--g);outline-offset:2px}.logo{font-weight:900;font-size:1.35rem}.logo i{color:var(--g);font-style:normal}
+.hero{max-width:1150px;margin:auto;padding:70px 20px;display:grid;grid-template-columns:1.2fr .8fr;gap:35px}.hero h1{font-size:clamp(2.5rem,6vw,4.7rem);line-height:1;margin:0 0 20px}.hero p{font-size:1.15rem;color:#dce8f0}.btn{display:inline-block;padding:14px 20px;border-radius:8px;text-decoration:none;font-weight:800;margin:6px 6px 0 0;border:2px solid transparent;cursor:pointer}.btn:focus-visible,button:focus-visible,.tab:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f2b84b;outline-offset:3px}.gold{background:var(--g);color:#142233}.outline{border:1px solid #c6dae8;color:#fff}.card,form,.panel{background:#fff;border-radius:15px;padding:25px;box-shadow:0 7px 25px #00000012}
+section{max-width:1150px;margin:auto;padding:65px 20px}h2{font-size:2.2rem}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.service,.step{background:#fff;padding:23px;border-radius:13px;box-shadow:0 5px 18px #0000000b}.step b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--b);color:#fff}.notice{padding:18px;border-left:5px solid var(--g);background:#fff8e9;border-radius:7px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}.tab{padding:12px 16px;border:2px solid #0b527d;border-radius:8px;background:#fff;color:#073653;cursor:pointer;font-weight:800;margin-top:0}.tab:hover{background:#e7f3fa}.tab.active{background:#0b527d;color:#fff;border-color:#0b527d;box-shadow:0 0 0 2px #fff inset}
+label{display:block;font-weight:700;margin:13px 0 5px;color:#182536}input,select,textarea{width:100%;padding:12px;border:2px solid #aab9c6;border-radius:7px;font:inherit;background:#fff;color:#182536}input[type=file]{border-style:solid;cursor:pointer}button{background:#0b527d;color:#fff;border:2px solid #0b527d;border-radius:8px;padding:13px 19px;font-weight:800;cursor:pointer;margin-top:15px}button:hover{background:#073653;border-color:#073653}button:active{transform:translateY(1px)}textarea{min-height:100px}
+.progress{display:flex;gap:6px;margin:20px 0}.bar{height:8px;flex:1;background:#dbe3e9;border-radius:8px}.bar.on{background:var(--b)}.hidden{display:none}.price{font-size:1.8rem;font-weight:900;color:var(--b)}.package-option{display:block;padding:14px;border:2px solid #aab9c6;border-radius:9px;margin:10px 0;background:#fff;cursor:pointer}.package-option:has(input:checked){border-color:#0b527d;background:#e7f3fa}.package-option input{width:auto;display:inline-block}
+footer{background:var(--n);color:#d7e1e8;text-align:center;padding:40px 20px}@media(max-width:800px){.hero,.grid{grid-template-columns:1fr}nav div:last-child{display:flex;gap:4px;flex-wrap:wrap}nav a{margin-left:0;padding:8px;font-size:.9rem}}
+
+/* High-contrast usability improvements */
+:root{--n:#06172b;--b:#064d78;--g:#ffd166;--bg:#edf3f8;--ink:#101e2d}
+body{color:#101e2d;background:#edf3f8}
+section h2{color:#06172b;font-weight:900;text-shadow:0 1px 0 #fff}
+.panel{border:2px solid #b4c8d8;box-shadow:0 8px 26px #06172b18}
+#portal .tabs{padding:12px;background:#e0ebf4;border:2px solid #9eb6c9;border-radius:12px}
+#portal .tab{background:#fff;color:#073653;border:2px solid #064d78;font-size:1rem;font-weight:900;min-height:48px;box-shadow:0 2px 0 #c1d1de}
+#portal .tab:hover{background:#d8edf9;color:#06172b}
+#portal .tab.active{background:#ffd166;color:#06172b;border:3px solid #06172b;box-shadow:0 0 0 2px #fff inset;font-weight:900}
+#portal h3{color:#06172b;background:#e7f1f8;border-left:6px solid #064d78;padding:12px 14px;border-radius:6px;font-size:1.35rem}
+#portal label{color:#101e2d;font-weight:800;font-size:1rem}
+#portal input:not([type=radio]),#portal select,#portal textarea{background:#fff;color:#101e2d;border:2px solid #53758f;min-height:46px;font-weight:600}
+#portal input::placeholder,#portal textarea::placeholder{color:#4a5d6e;opacity:1}
+#portal input:focus,#portal select:focus,#portal textarea:focus{outline:3px solid #e5a900;outline-offset:2px;border-color:#06172b}
+#portal input[type=file]{background:#f4f8fb;border:2px dashed #53758f;padding:12px}
+#portal .progress{background:#e0ebf4;padding:5px;border-radius:10px}
+#portal .bar{height:12px;background:#c0ced9;border:1px solid #6f879a}
+#portal .bar.on{background:#ffd166;border:2px solid #06172b}
+#portal .package-option{background:#fff;border:2px solid #53758f;color:#101e2d;padding:16px;box-shadow:0 2px 5px #06172b10}
+#portal .package-option:has(input:checked){background:#fff2c8;border:3px solid #064d78;box-shadow:0 0 0 2px #ffd166}
+#portal .package-option strong{color:#06172b;font-size:1.05rem}
+#portal .package-option input[type=radio]{accent-color:#064d78;transform:scale(1.25);margin-right:10px}
+#portal .notice{background:#fff4d6;color:#172333;border-left:6px solid #c18400;font-weight:600}
+#portal button,#portal .btn{font-size:1rem;font-weight:900;min-height:48px}
+#portal button{background:#064d78;color:#fff;border:2px solid #06172b}
+#portal button:hover{background:#06172b}
+#portal .btn.gold{background:#ffd166;color:#06172b;border:3px solid #06172b}
+#portal .btn.gold:hover{background:#ffe29a}
+label,legend{color:#101e2d}
+@media(max-width:600px){#portal .tab{flex:1 1 42%;padding:12px 8px}#portal .tabs{gap:8px}}
+
+
+/* Improve readability of the six client workflow steps */
+.hero .card p {
+  color: #111827 !important;
+  background-color: #f0f5ff;
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 8px 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;</style>
+</head>
+<body>
+<header>
+<nav><div class="logo">Offshore <i>Opportunities</i></div><div><a href="#services">Services</a><a href="#portal">Client Portal</a><a href="#admin">Admin</a></div></nav>
+<div class="hero"><div><h1>Your MMC application, organized.</h1><p>Independent application-assistance services for mariners seeking help organizing information, applicable forms, supporting documents and submission packages.</p><a class="btn gold" href="#portal">Start Application</a><a class="btn outline" href="#services">View Services</a></div>
+<div class="card"><h3>Client workflow</h3><p>1. Select service</p><p>2. Complete intake</p><p>3. Upload documents securely</p><p>4. Review your package</p><p>5. Pay service fee</p><p>6. Receive submission guidance</p></div></div>
+</header>
+
+<section id="services"><h2>Services & Pricing</h2><div class="grid">
+<div class="service"><h3>Basic Assistance</h3><div class="price">$250.00</div><p>Intake + applicable-form assistance + basic document checklist.</p></div>
+<div class="service"><h3>Complete Package</h3><div class="price">$300.00</div><p>Application assistance + document organization + package review.</p></div>
+<div class="service"><h3>Premium Support</h3><div class="price">$450.00</div><p>Complete package service + additional review and submission guidance.</p></div>
+</div>
+<div class="notice"><strong>Independent service:</strong> Offshore Opportunities is not the U.S. Coast Guard, National Maritime Center, or a Regional Examination Center. The Coast Guard determines eligibility and issues credentials.</div></section>
+
+<section id="portal"><h2>Client Application Portal</h2>
+<div class="panel"><div class="progress"><span class="bar on"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+<div class="tabs"><button class="tab active" onclick="showStep(1)">1 Intake</button><button class="tab" onclick="showStep(2)">2 Documents</button><button class="tab" onclick="showStep(3)">3 Review</button><button class="tab" onclick="showStep(4)">4 Payment</button></div>
+<div id="s1"><h3>Tell us what you need</h3><form onsubmit="next(2);return false"><label>First name<input required></label><label>Last name<input required></label><label>Email<input required type=email></label><label>Service<select><option>Original MMC</option><option>Renewal</option><option>Raise of Grade</option><option>Modification / Increase of Scope</option><option>STCW</option><option>Duplicate</option><option>Replacement</option><option>Document of Continuity</option><option>Additional Information</option></select></label><button>Continue</button></form></div>
+<div id="s2" class="hidden"><h3>Document Checklist</h3><p>Demo only: selecting files here does not upload them to your business. A secure file-upload service must be connected before clients submit real documents.</p><label>TWIC / identification<input type=file></label><label>Sea-service documentation<input type=file multiple></label><label>Training / assessment documents<input type=file multiple></label><label>Other supporting documents<input type=file multiple></label><button onclick="next(3)">Continue</button></div>
+<div id="s3" class="hidden"><h3>Package Review</h3><p>Demo only: no client records or uploaded documents are saved yet. Connect a secure backend before using this for real applications.</p><div class="notice">Status: <strong>Awaiting client review</strong></div><button onclick="next(4)">Continue to Payment</button></div>
+<div id="s4" class="hidden"><h3>Service Payment</h3><p>Select the package you are purchasing:</p><fieldset id="packageOptions" style="border:0;padding:0;margin:0"><legend style="font-weight:800;margin-bottom:10px">Choose your service package</legend><label class="package-option"><input type="radio" name="servicePackage" value="basic" checked style="width:auto;margin-right:8px"> <strong>Basic Assistance — $250.00</strong></label><label class="package-option"><input type="radio" name="servicePackage" value="complete" style="width:auto;margin-right:8px"> <strong>Complete Package — $300.00</strong></label><label class="package-option"><input type="radio" name="servicePackage" value="premium" style="width:auto;margin-right:8px"> <strong>Premium Support — $450.00</strong></label></fieldset><p id="paymentDescription" class="notice" aria-live="polite">Selected: Basic Assistance — $250.00. The button below will open the matching Stripe checkout. Confirm the package name and amount on Stripe before paying.</p><a id="checkoutButton" class="btn gold" href="https://buy.stripe.com/9B66oH9VU9h76nhb1Ce7m00" target="_blank" rel="noopener noreferrer">Pay $250.00 — Basic Assistance</a></div>
+</div></section>
+
+<section id="admin"><h2>Owner Dashboard</h2><div class="grid">
+<div class="service"><h3>New Clients</h3><p style="font-size:2rem">12</p><small>Demo data</small></div>
+<div class="service"><h3>Awaiting Documents</h3><p style="font-size:2rem">5</p><small>Demo data</small></div>
+<div class="service"><h3>Ready for Review</h3><p style="font-size:2rem">3</p><small>Demo data</small></div>
+</div><div class="panel" style="margin-top:20px"><h3>Client Queue</h3><p>Client records, document status, payment status, messages and review notes will appear here after a secure backend is connected.</p></div></section>
+
+<section><h2>Official Coast Guard Process</h2><p>The current NMC guidance identifies application types including Original, Renewal, Raise of Grade, Modification/Increase of Scope, STCW, Duplicate, Replacement and Document of Continuity. NMC guidance also directs applicants to use current forms and its current submission system. Your website should link clients to the official NMC information rather than presenting your business as the credentialing authority.</p><div class="notice"><strong>Privacy:</strong> Before launch, connect uploads and payments to a secure service. Do not store sensitive identity or medical information in this demo website.</div></section>
+<footer><strong>Offshore Opportunities</strong><p>Independent MMC Application Assistance</p><p>© 2026 Offshore Opportunities</p></footer>
+<script>
+const stripePaymentLinks = {
+  basic: { url: 'https://buy.stripe.com/9B66oH9VU9h76nhb1Ce7m00', label: 'Pay $250.00 — Basic Assistance' },
+  complete: { url: 'https://buy.stripe.com/7sYbJ17NMbpfdPJ2v6e7m01', label: 'Pay $300.00 — Complete Package' },
+  premium: { url: 'https://buy.stripe.com/28EaEX6JI64VfXRb1Ce7m02', label: 'Pay $450.00 — Premium Support' }
+};
+function updateCheckoutLink() {
+  const checked = document.querySelector('input[name="servicePackage"]:checked');
+  const choice = checked ? checked.value : 'basic';
+  const selected = stripePaymentLinks[choice] || stripePaymentLinks.basic;
+  const button = document.getElementById('checkoutButton');
+  const description = document.getElementById('paymentDescription');
+  button.href = selected.url;
+  button.textContent = selected.label;
+  description.textContent = 'Selected: ' + selected.label.replace(/^Pay /, '') + '. The button below will open the matching Stripe checkout. Confirm the package name and amount on Stripe before paying.';
+}
+document.querySelectorAll('input[name="servicePackage"]').forEach(function(option) {
+  option.addEventListener('change', updateCheckoutLink);
+});
+document.getElementById('checkoutButton').addEventListener('click', function(event) {
+  updateCheckoutLink();
+  const checked = document.querySelector('input[name="servicePackage"]:checked');
+  const selected = stripePaymentLinks[checked ? checked.value : 'basic'];
+  this.href = selected.url;
+});
+function showStep(n){for(let i=1;i<=4;i++)document.getElementById('s'+i).classList.toggle('hidden',i!==n);document.querySelectorAll('.bar').forEach((b,i)=>b.classList.toggle('on',i<n));}
+function next(n){showStep(n);document.getElementById('portal').scrollIntoView({behavior:'smooth'});}
+updateCheckoutLink();
+</script>
+</body></html>
