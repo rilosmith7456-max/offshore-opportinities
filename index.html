@@ -92,56 +92,81 @@ label,legend{color:#101e2d}
 <footer><strong>Offshore Opportunities</strong><p>Independent MMC Application Assistance</p><p>© 2026 Offshore Opportunities</p></footer>
 <script>
 const stripePaymentLinks = {
-  basic: { url: 'https://buy.stripe.com/9B66oH9VU9h76nhb1Ce7m00', label: 'Pay $250.00 — Basic Assistance' },
-  complete: { url: 'https://buy.stripe.com/7sYbJ17NMbpfdPJ2v6e7m01', label: 'Pay $300.00 — Complete Package' },
-  premium: { url: 'https://buy.stripe.com/28EaEX6JI64VfXRb1Ce7m02', label: 'Pay $450.00 — Premium Support' }
+  basic: {
+    url: 'https://buy.stripe.com/9B66oH9VU9h76nhb1Ce7m00',
+    label: 'Pay $250.00 — Basic Assistance'
+  },
+  complete: {
+    url: 'https://buy.stripe.com/7sYbJ17NMbpfdPJ2v6e7m01',
+    label: 'Pay $300.00 — Complete Package'
+  },
+  premium: {
+    url: 'https://buy.stripe.com/28EaEX6JI64VfXRb1Ce7m02',
+    label: 'Pay $450.00 — Premium Support'
+  }
 };
+
 function updateCheckoutLink() {
-  const checked = document.querySelector('input[name="servicePackage"]:checked');
+  const checked = document.querySelector(
+    'input[name="servicePackage"]:checked'
+  );
   const choice = checked ? checked.value : 'basic';
   const selected = stripePaymentLinks[choice] || stripePaymentLinks.basic;
   const button = document.getElementById('checkoutButton');
   const description = document.getElementById('paymentDescription');
-  button.href = selected.url;
-  button.textContent = selected.label;
-  description.textContent = 'Selected: ' + selected.label.replace(/^Pay /, '') + '. The button below will open the matching Stripe checkout. Confirm the package name and amount on Stripe before paying.';
+
+  if (button) {
+    button.href = selected.url;
+    button.textContent = selected.label;
+  }
+
+  if (description) {
+    description.textContent =
+      'Selected: ' + selected.label.replace(/^Pay /, '') +
+      '. The button below will open the matching Stripe checkout. ' +
+      'Confirm the package name and amount on Stripe before paying.';
+  }
 }
-document.querySelectorAll('input[name="servicePackage"]').forEach(function(option) {
-  option.addEventListener('change', updateCheckoutLink);
-});
-document.getElementById('checkoutButton').addEventListener('click', function(event) {
-  
+
+document.querySelectorAll('input[name="servicePackage"]').forEach(
+  function(option) {
+    option.addEventListener('change', updateCheckoutLink);
+  }
+);
+
 async function submitApplication(event) {
   event.preventDefault();
 
-  const form = document.getElementById("intakeForm");
-  const submitButton = form.querySelector('button[type="submit"], button:not([type])');
+  const form = document.getElementById('intakeForm');
+  const submitButton = form.querySelector(
+    'button[type="submit"], button:not([type])'
+  );
 
   if (submitButton) {
     submitButton.disabled = true;
-    submitButton.textContent = "Submitting...";
+    submitButton.textContent = 'Submitting...';
   }
 
   try {
-    const response = await fetch("/api/applications", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch('/api/applications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        firstName: document.getElementById("firstName").value,
-        lastName: document.getElementById("lastName").value,
-        email: document.getElementById("email").value,
-        serviceType: document.getElementById("serviceType").value
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        serviceType: document.getElementById('serviceType').value
       })
     });
 
     const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(result.error || "Submission failed.");
+      throw new Error(result.error || 'Submission failed.');
     }
 
     alert(
-      "Your application information was received. Reference number: " +
+      'Your application information was received. Reference number: ' +
       result.reference_number
     );
 
@@ -154,16 +179,31 @@ async function submitApplication(event) {
   } finally {
     if (submitButton) {
       submitButton.disabled = false;
-      submitButton.textContent = "Continue";
+      submitButton.textContent = 'Continue';
     }
   }
-}updateCheckoutLink();
-  const checked = document.querySelector('input[name="servicePackage"]:checked');
-  const selected = stripePaymentLinks[checked ? checked.value : 'basic'];
-  this.href = selected.url;
-});
-function showStep(n){for(let i=1;i<=4;i++)document.getElementById('s'+i).classList.toggle('hidden',i!==n);document.querySelectorAll('.bar').forEach((b,i)=>b.classList.toggle('on',i<n));}
-function next(n){showStep(n);document.getElementById('portal').scrollIntoView({behavior:'smooth'});}
+}
+
+function showStep(n) {
+  for (let i = 1; i <= 4; i++) {
+    const step = document.getElementById('s' + i);
+    if (step) {
+      step.classList.toggle('hidden', i !== n);
+    }
+  }
+
+  document.querySelectorAll('.bar').forEach(function(bar, i) {
+    bar.classList.toggle('on', i < n);
+  });
+}
+
+function next(n) {
+  showStep(n);
+  const portal = document.getElementById('portal');
+  if (portal) {
+    portal.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 updateCheckoutLink();
 </script>
-</body></html>
