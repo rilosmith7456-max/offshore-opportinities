@@ -22,12 +22,19 @@ export async function onRequest({ request, env }) {
     );
   }
 
-  if (!env.DB || !env.DOCUMENTS) {
-    return Response.json(
-      { error: "Database or private document storage is not configured." },
-      { status: 500 }
-    );
-  }
+ if (!env.DB) {
+  return Response.json(
+    { error: "The DB database binding is missing." },
+    { status: 500 }
+  );
+}
+
+if (!env.DOCUMENTS) {
+  return Response.json(
+    { error: "The DOCUMENTS storage binding is missing." },
+    { status: 500 }
+  );
+}
 
   const token = request.headers.get("X-Upload-Token") || "";
 
