@@ -110,7 +110,54 @@ document.querySelectorAll('input[name="servicePackage"]').forEach(function(optio
   option.addEventListener('change', updateCheckoutLink);
 });
 document.getElementById('checkoutButton').addEventListener('click', function(event) {
-  updateCheckoutLink();
+  
+async function submitApplication(event) {
+  event.preventDefault();
+
+  const form = document.getElementById("intakeForm");
+  const submitButton = form.querySelector('button[type="submit"], button:not([type])');
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+  }
+
+  try {
+    const response = await fetch("/api/applications", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
+        email: document.getElementById("email").value,
+        serviceType: document.getElementById("serviceType").value
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || "Submission failed.");
+    }
+
+    alert(
+      "Your application information was received. Reference number: " +
+      result.reference_number
+    );
+
+    next(2);
+  } catch (error) {
+    alert(
+      "We couldn't submit your information. Please try again. " +
+      error.message
+    );
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = "Continue";
+    }
+  }
+}updateCheckoutLink();
   const checked = document.querySelector('input[name="servicePackage"]:checked');
   const selected = stripePaymentLinks[checked ? checked.value : 'basic'];
   this.href = selected.url;
