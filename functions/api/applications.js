@@ -32,10 +32,12 @@
     typeof data.email === "string"
       ? data.email.trim().toLowerCase()
       : "";
-  const serviceType =
-    typeof data.serviceType === "string"
-      ? data.serviceType.trim()
-      : "";
+  const servicePackage =
+  typeof data.servicePackage === "string"
+    ? data.servicePackage.trim().toLowerCase()
+    : "";
+
+const allowedPackages = ["basic", "complete", "premium"];
 
   const allowedServices = [
     "Original MMC",
@@ -56,7 +58,7 @@
     lastName.length > 100 ||
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
     email.length > 254 ||
-    !allowedServices.includes(serviceType)
+    !allowedServices.includes(serviceType)|| !allowedPackages.includes(servicePackage)
   ) {
     return Response.json(
       { error: "Please provide a valid name, email, and MMC service." },
@@ -70,7 +72,14 @@
   const uploadToken =
     crypto.randomUUID() + crypto.randomUUID();
 
-  try {
+   try {
+    if (!allowedPackages.includes(servicePackage)) {
+      return Response.json(
+        { error: "Please select a valid service package." },
+        { status: 400 }
+      );
+    }
+
     await env.DB.prepare(
       `INSERT INTO applications
        (reference_number, customer_name, customer_email,
@@ -84,13 +93,6 @@
         serviceType,
         uploadToken,
         servicePackage
-      )
-      .bind(
-        reference,
-        `${firstName} ${lastName}`,
-        email,
-        serviceType,
-        uploadToken
       )
       .run();
 
