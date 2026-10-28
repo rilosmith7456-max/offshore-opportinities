@@ -31,7 +31,10 @@
   const email =
     typeof data.email === "string"
       ? data.email.trim().toLowerCase()
-      : "";
+      : "";const serviceType =
+  typeof data.serviceType === "string"
+    ? data.serviceType.trim()
+    : "";
   const servicePackage =
   typeof data.servicePackage === "string"
     ? data.servicePackage.trim().toLowerCase()
