@@ -106,6 +106,8 @@ const stripePaymentLinks = {
   }
 };
 
+let currentUploadToken = '';
+
 function updateCheckoutLink() {
   const checked = document.querySelector(
     'input[name="servicePackage"]:checked'
@@ -123,8 +125,7 @@ function updateCheckoutLink() {
   if (description) {
     description.textContent =
       'Selected: ' + selected.label.replace(/^Pay /, '') +
-      '. The button below will open the matching Stripe checkout. ' +
-      'Confirm the package name and amount on Stripe before paying.';
+      '. Confirm the package name and amount on Stripe before paying.';
   }
 }
 
@@ -165,6 +166,12 @@ async function submitApplication(event) {
       throw new Error(result.error || 'Submission failed.');
     }
 
+    if (!result.upload_token) {
+      throw new Error('The upload token was not returned. Please contact support.');
+    }
+
+    currentUploadToken = result.upload_token;
+
     alert(
       'Your application information was received. Reference number: ' +
       result.reference_number
@@ -173,14 +180,96 @@ async function submitApplication(event) {
     next(2);
   } catch (error) {
     alert(
-      "We couldn't submit your information. Please try again. " +
-      error.message
+      "We couldn't submit your information. " + error.message
     );
   } finally {
     if (submitButton) {
       submitButton.disabled = false;
       submitButton.textContent = 'Continue';
     }
+  }
+}
+
+async function uploadDocuments() {
+  const inputs = document.querySelectorAll('#s2 input[type="file"]');
+  const files = [];
+
+  inputs.forEach(function(input) {
+    Array.from(input.files || []).forEach(function(file) {
+      files.push(file);
+    });
+  });
+
+  // Allow clients to continue if they have no documents ready yet.
+  if (files.length === 0) {
+    return true;
+  }
+
+  if (!currentUploadToken) {
+    alert('Your application upload session is missing. Please start again.');
+    return false;
+  }
+
+  if (files.length > 10) {
+    alert('Please select no more than 10 files at a time.');
+    return false;
+  }
+
+  const allowedTypes = [
+    'application/pdf',
+    'image/jpeg',
+    'image/png'
+  ];
+
+  const allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
+
+  for (const file of files) {
+    const extension = file.name.includes('.')
+      ? file.name.split('.').pop().toLowerCase()
+      : '';
+
+    if (
+      file.size < 1 ||
+      file.size > 10 * 1024 * 1024 ||
+      !allowedTypes.includes(file.type) ||
+      !allowedExtensions.includes(extension)
+    ) {
+      alert(
+        'Each file must be a PDF, JPG, or PNG no larger than 10 MB.'
+      );
+      return false;
+    }
+  }
+
+  const formData = new FormData();
+
+  files.forEach(function(file) {
+    formData.append('files', file, file.name);
+  });
+
+  try {
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      headers: {
+        'X-Upload-Token': currentUploadToken
+      },
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Upload failed.');
+    }
+
+    alert('Your selected documents were uploaded successfully.');
+    return true;
+  } catch (error) {
+    alert(
+      'The documents could not be uploaded. Please try again. ' +
+      error.message
+    );
+    return false;
   }
 }
 
@@ -197,8 +286,25 @@ function showStep(n) {
   });
 }
 
-function next(n) {
+async function next(n) {
+  if (n === 3) {
+    const buttons = document.querySelectorAll('#s2 button');
+    buttons.forEach(function(button) {
+      button.disabled = true;
+    });
+
+    try {
+      const success = await uploadDocuments();
+      if (!success) return;
+    } finally {
+      buttons.forEach(function(button) {
+        button.disabled = false;
+      });
+    }
+  }
+
   showStep(n);
+
   const portal = document.getElementById('portal');
   if (portal) {
     portal.scrollIntoView({ behavior: 'smooth' });
