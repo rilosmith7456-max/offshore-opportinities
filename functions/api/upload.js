@@ -29,7 +29,7 @@ export async function onRequest({ request, env }) {
   );
 }
 
-if (!env.DOCUMENTS) {
+if (!env.Documents) {
   return Response.json(
     { error: "The DOCUMENTS storage binding is missing." },
     { status: 500 }
@@ -120,7 +120,7 @@ if (!env.DOCUMENTS) {
       const key =
         `applications/${application.id}/${crypto.randomUUID()}`;
 
-      await env.DOCUMENTS.put(key, file.stream(), {
+      await env.Documents.put(key, file.stream(), {
         httpMetadata: {
           contentType: file.type
         },
