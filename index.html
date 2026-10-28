@@ -152,12 +152,13 @@ async function submitApplication(event) {
     const response = await fetch('/api/applications', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('email').value,
-        serviceType: document.getElementById('serviceType').value
-      })
+     body: JSON.stringify({
+  firstName: document.getElementById('firstName').value,
+  lastName: document.getElementById('lastName').value,
+  email: document.getElementById('email').value,
+  serviceType: document.getElementById('serviceType').value,
+  servicePackage: document.querySelector('input[name="servicePackage"]:checked')?.value || 'basic'
+})
     });
 
     const result = await response.json();
