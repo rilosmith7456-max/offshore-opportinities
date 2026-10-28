@@ -25,43 +25,61 @@ export async function onRequest({ request, env }) {
     );
   }
 
-  const name =
-    typeof data.name === "string" ? data.name.trim() : "";
+  const firstName =
+    typeof data.firstName === "string" ? data.firstName.trim() : "";
+  const lastName =
+    typeof data.lastName === "string" ? data.lastName.trim() : "";
   const email =
-    typeof data.email === "string" ? data.email.trim().toLowerCase() : "";
-  const service =
-    typeof data.service_package === "string"
-      ? data.service_package.trim()
+    typeof data.email === "string"
+      ? data.email.trim().toLowerCase()
+      : "";
+  const serviceType =
+    typeof data.serviceType === "string"
+      ? data.serviceType.trim()
       : "";
 
-  const allowedPackages = [
-    "Basic Assistance",
-    "Complete Package",
-    "Premium Support"
+  const allowedServices = [
+    "Original MMC",
+    "Renewal",
+    "Raise of Grade",
+    "Modification / Increase of Scope",
+    "STCW",
+    "Duplicate",
+    "Replacement",
+    "Document of Continuity",
+    "Additional Information"
   ];
 
   if (
-    name.length < 2 ||
-    name.length > 100 ||
+    firstName.length < 1 ||
+    firstName.length > 100 ||
+    lastName.length < 1 ||
+    lastName.length > 100 ||
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
     email.length > 254 ||
-    !allowedPackages.includes(service)
+    !allowedServices.includes(serviceType)
   ) {
     return Response.json(
-      { error: "Please provide a valid name, email, and service package." },
+      { error: "Please provide a valid name, email, and MMC service." },
       { status: 400 }
     );
   }
 
-  const reference = "OO-" + crypto.randomUUID().slice(0, 8).toUpperCase();
+  const reference =
+    "OO-" + crypto.randomUUID().slice(0, 8).toUpperCase();
 
   try {
     await env.DB.prepare(
       `INSERT INTO applications
-       (reference_number, customer_name, customer_email, service_package)
+       (reference_number, customer_name, customer_email, service_type)
        VALUES (?, ?, ?, ?)`
     )
-      .bind(reference, name, email, service)
+      .bind(
+        reference,
+        `${firstName} ${lastName}`,
+        email,
+        serviceType
+      )
       .run();
 
     return Response.json(
