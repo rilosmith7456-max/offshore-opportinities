@@ -74,9 +74,17 @@
     await env.DB.prepare(
       `INSERT INTO applications
        (reference_number, customer_name, customer_email,
-        service_type, upload_token)
-       VALUES (?, ?, ?, ?, ?)`
+        service_type, upload_token, service_package)
+       VALUES (?, ?, ?, ?, ?, ?)`
     )
+      .bind(
+        reference,
+        `${firstName} ${lastName}`,
+        email,
+        serviceType,
+        uploadToken,
+        servicePackage
+      )
       .bind(
         reference,
         `${firstName} ${lastName}`,
