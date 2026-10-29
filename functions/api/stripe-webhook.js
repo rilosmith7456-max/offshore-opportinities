@@ -87,7 +87,35 @@ export async function onRequest({ request, env }) {
     return new Response("Invalid JSON", { status: 400 });
   }
 
+  
   if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
+
+    // Only mark the application paid when Stripe confirms payment.
+    if (session.payment_status === "paid" && session.id) {
+      await env.DB.prepare(
+        `UPDATE payments
+         SET payment_status = 'paid'
+         WHERE stripe_session_id = ?`
+      )
+        .bind(session.id)
+        .run();
+
+      await env.DB.prepare(
+        `UPDATE applications
+         SET payment_status = 'paid',
+             updated_at = CURRENT_TIMESTAMP
+         WHERE id = (
+           SELECT application_id
+           FROM payments
+           WHERE stripe_session_id = ?
+           LIMIT 1
+         )`
+      )
+        .bind(session.id)
+        .run();
+    }
+  } {
     // Signature verified. Payment-to-application matching
     // and fulfillment still need to be implemented.
   }
