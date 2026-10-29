@@ -136,13 +136,14 @@ const stripePaymentLinks = {
   }
 };
 
-let currentUploadToken = '';
+let currentUploadToken = '';let selectedServicePackage = 'basic';
 
 function updateCheckoutLink() {
   const checked = document.querySelector(
     'input[name="servicePackage"]:checked'
   );
-  const choice = checked ? checked.value : 'basic';
+  if (checked) selectedServicePackage = checked.value;
+const choice = selectedServicePackage;
   const selected = stripePaymentLinks[choice] || stripePaymentLinks.basic;
   const button = document.getElementById('checkoutButton');
   const description = document.getElementById('paymentDescription');
