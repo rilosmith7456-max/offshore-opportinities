@@ -83,7 +83,7 @@ const allowedPackages = ["basic", "complete", "premium"];
       );
     }
 
-    await env.DB.prepare(
+    const result = await env.DB.prepare(
       `INSERT INTO applications
        (reference_number, customer_name, customer_email,
         service_type, upload_token, service_package)
@@ -100,14 +100,15 @@ const allowedPackages = ["basic", "complete", "premium"];
       .run();
 
     return Response.json(
-      {
-        success: true,
-        reference_number: reference,
-        upload_token: uploadToken,
-        message: "Application received."
-      },
-      { status: 201 }
-    );
+  {
+    success: true,
+    application_id: result.meta?.last_row_id,
+    reference_number: reference,
+    upload_token: uploadToken,
+    message: "Application received."
+  },
+  { status: 201 }
+);
   } catch {
     return Response.json(
       {
