@@ -203,7 +203,8 @@ servicePackage: selectedServicePackage
       throw new Error('The upload token was not returned. Please contact support.');
     }
 
-    currentUploadToken = result.upload_token;
+    currentUploadToken = result.upload_token;currentApplicationId = result.application_id;
+if (!currentApplicationId) throw new Error('Application ID was not returned.');
 
     alert(
       'Your application information was received. Reference number: ' +
