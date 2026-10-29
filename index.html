@@ -344,4 +344,38 @@ async function next(n) {
 }
 
 updateCheckoutLink();
-</script>
+const checkoutButton = document.getElementById('checkoutButton');
+
+if (checkoutButton) {
+  checkoutButton.addEventListener('click', async function () {
+    if (!currentApplicationId) {
+      alert('Please submit your application before paying.');
+      return;
+    }
+
+    checkoutButton.disabled = true;
+    checkoutButton.textContent = 'Opening secure checkout...';
+
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          applicationId: currentApplicationId
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.url) {
+        throw new Error(result.error || 'Could not start checkout.');
+      }
+
+      window.location.href = result.url;
+    } catch (error) {
+      alert(error.message);
+      checkoutButton.disabled = false;
+      updateCheckoutLink();
+    }
+  });
+}</script>
