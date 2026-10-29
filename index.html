@@ -136,7 +136,8 @@ const stripePaymentLinks = {
   }
 };
 
-let currentUploadToken = '';let selectedServicePackage = 'basic';
+let currentUploadToken = '';
+  let selectedServicePackage = 'basic';
 
 function updateCheckoutLink() {
   const checked = document.querySelector(
@@ -188,7 +189,7 @@ async function submitApplication(event) {
   lastName: document.getElementById('lastName').value,
   email: document.getElementById('email').value,
   serviceType: document.getElementById('serviceType').value,
-  servicePackage: document.querySelector('input[name="servicePackage"]:checked')?.value || 'basic'
+servicePackage: selectedServicePackage
 })
     });
 
